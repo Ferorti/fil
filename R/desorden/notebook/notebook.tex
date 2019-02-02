@@ -1,0 +1,705 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{script}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Projecto: Desorden
+Flavivirus}\label{projecto-desorden-flavivirus}
+
+\subsection{Convertir datos de salida de mobidb a
+data.frames}\label{convertir-datos-de-salida-de-mobidb-a-data.frames}
+
+    Se realizo una busqueda de secuencias de las poliproteinas de todas las
+especies de virus de la familia Flavivirus. Se encontraron XXXX
+secuencias. Se elimino las secuencias con caracteres "X" y se realizo
+una clusterizacion con cd-hit al 0.8. Se calcularon los scores de
+desorden para cada posicion de cada secuencia con el script de mobidb.
+La salida de mobidb es un archivo json, el cual debe ser modificado con
+bash, para ser leido correctamente por el parser de json de R.
+
+    \subsubsection{Script:}\label{script}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ggplot2\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{reshape2\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{jsonlite\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{seqinr\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{zoo\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{Primera parte, procesar los datos de
+json}\label{primera-parte-procesar-los-datos-de-json}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}lee el archivo json (editado previamente en bash)}
+        json\PYZus{}file \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{/home/fernando/git/flavivirus\PYZhy{}disorder/2019/flavivirus/no\PYZus{}X/hit08/json\PYZus{}in/gp\PYZus{}f.json\PYZdq{}}
+        data \PY{o}{=} stream\PYZus{}in\PY{p}{(}\PY{k+kp}{file}\PY{p}{(}json\PYZus{}file\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}agrega una columna ID incremental}
+        data\PY{o}{\PYZdl{}}id \PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{k+kp}{nrow}\PY{p}{(}data\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}agrega una columna virus con el nombre del virus}
+        lista\PYZus{}virus \PY{o}{=} \PY{k+kt}{data.frame}\PY{p}{(}\PY{k+kp}{strsplit}\PY{p}{(}data\PY{o}{\PYZdl{}}acc\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{|\PYZdq{}}\PY{p}{,} fixed \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}separa por |}
+        data\PY{o}{\PYZdl{}}virus \PY{o}{=} \PY{k+kp}{gsub}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZus{}virus\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{k+kp}{unlist}\PY{p}{(}lista\PYZus{}virus\PY{p}{[}\PY{l+m}{1}\PY{p}{,}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}toma la primer fila que son los nombres de los virus}
+        
+        \PY{c+c1}{\PYZsh{} data frame con id nombre de virus y nombre largo}
+        codigos\PYZus{}virus \PY{o}{=} data\PY{p}{[}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{id\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{virus\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{acc\PYZdq{}}\PY{p}{)}\PY{p}{]}
+        
+        nombres  \PY{o}{=} data\PY{o}{\PYZdl{}}virus
+        
+        \PY{c+c1}{\PYZsh{}subset de trabajo}
+        datos \PY{o}{=} data\PY{p}{[}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{id\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{virus\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{p\PYZdq{}}\PY{p}{)}\PY{p}{]}
+        datos \PY{o}{\PYZlt{}\PYZhy{}} datos\PY{p}{[}\PY{l+m}{\PYZhy{}27}\PY{p}{,}\PY{p}{]} \PY{c+c1}{\PYZsh{}saco el que estaba mal alineado}
+        
+        
+        salida \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{/home/fernando/restaurado/alineamiento/nuevos\PYZus{}scores\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{} escribir los datos finales, descomentar}
+        
+        \PY{c+c1}{\PYZsh{}for (i in 1:nrow(datos))\PYZob{}}
+        \PY{c+c1}{\PYZsh{}  write(unlist(datos[i, 3]), \PYZdq{}/home/fernando/restaurado/alineamiento/nuevos\PYZus{}scores\PYZdq{}, }
+        \PY{c+c1}{\PYZsh{}                           append=T, sep=\PYZdq{},\PYZdq{}, ncolumns = length(unlist(datos[i, 3])))}
+        \PY{c+c1}{\PYZsh{}\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+opening file input connection.
+Warning message in readLines(con, n = pagesize, encoding = "UTF-8"):
+“incomplete final line found on '/home/fernando/git/flavivirus-disorder/2019/flavivirus/no\_X/hit08/json\_in/gp\_f.json'”
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ Imported 60 records. Simplifying{\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+closing file input connection.
+
+    \end{Verbatim}
+
+    el archivo nuevos\_scores es procesado en un script de python para
+agregar los gaps del alineamiento
+/home/fernando/git/flavivirus-disorder/2019/flavivirus/hit08/agrega\_gaps\_ascores.py
+Con este script se obtiene una matriz de scores con -1 para las
+posiciones con gaps
+
+script python:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ Bio }\ImportTok{import}\NormalTok{ AlignIO}
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+
+\CommentTok{# alineamiento de entrada de las secuencias utilizadas para caluclar los scores,}
+\CommentTok{# de aqui se sacan las posiciones que tienen gaps}
+\NormalTok{entrada }\OperatorTok{=} \StringTok{"/home/fernando/git/flavivirus-disorder/2019/flavivirus/no_X/hit08/poliproteina_alineado.fasta"}
+\NormalTok{tipo }\OperatorTok{=} \StringTok{"fasta"}
+\NormalTok{ali }\OperatorTok{=}\NormalTok{ AlignIO.read(entrada, tipo)}
+
+\CommentTok{# se lee el archivo de scores, para cada secuencia una linea, con scores separados por comas.}
+\ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(}\StringTok{"/home/fernando/restaurado/alineamiento/nuevos_scores"}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{    content }\OperatorTok{=}\NormalTok{ f.readlines()}
+\CommentTok{# you may also want to remove whitespace characters like `\textbackslash{}n` at the end of each line}
+\NormalTok{content }\OperatorTok{=}\NormalTok{ [x.strip() }\ControlFlowTok{for}\NormalTok{ x }\KeywordTok{in}\NormalTok{ content]}
+
+\CommentTok{#convierte a una array.}
+\NormalTok{series }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(ali)):}
+\NormalTok{    series.append(np.array(content[i].split(}\StringTok{","}\NormalTok{)))}
+
+\NormalTok{final }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{final2 }\OperatorTok{=}\NormalTok{ []}
+
+\NormalTok{ID }\OperatorTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ virus }\KeywordTok{in}\NormalTok{ ali:}
+    \BuiltInTok{print}\NormalTok{ virus.}\BuiltInTok{id}
+\NormalTok{    secuencia }\OperatorTok{=}\NormalTok{ virus.seq}
+    \BuiltInTok{print}\NormalTok{ secuencia}
+
+\NormalTok{    scores_seq }\OperatorTok{=}\NormalTok{ np.array([])}
+\NormalTok{    ls }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{    pos_score }\OperatorTok{=} \DecValTok{0}
+    \BuiltInTok{print} \BuiltInTok{len}\NormalTok{(secuencia)}
+    \ControlFlowTok{for}\NormalTok{ residuo }\KeywordTok{in}\NormalTok{ secuencia:}
+        \CommentTok{#print residuo}
+
+        \ControlFlowTok{if}\NormalTok{ residuo }\OperatorTok{!=} \StringTok{"-"}\NormalTok{:}
+            \CommentTok{#ls.append(series[ID][pos_score)}
+
+\NormalTok{            scores_seq }\OperatorTok{=}\NormalTok{ np.append(scores_seq, series[ID][pos_score])}
+            \CommentTok{#print ID, pos_score,  series[ID][pos_score]}
+\NormalTok{            pos_score }\OperatorTok{=}\NormalTok{ pos_score }\OperatorTok{+} \DecValTok{1}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            scores_seq }\OperatorTok{=}\NormalTok{ np.append(scores_seq, }\DecValTok{-1}\NormalTok{)}
+\NormalTok{            ls.append(}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\NormalTok{    ID }\OperatorTok{=}\NormalTok{ ID }\OperatorTok{+} \DecValTok{1}
+\NormalTok{    final.append(scores_seq)}
+\CommentTok{#    final2.append(ls)}
+
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(}\BuiltInTok{list}\NormalTok{(}\BuiltInTok{map}\NormalTok{(np.ravel, final)))}
+\NormalTok{df.to_csv(}\StringTok{"/home/fernando/restaurado/alineamiento/scores_df2"}\NormalTok{, sep}\OperatorTok{=}\StringTok{'}\CharTok{\textbackslash{}t}\StringTok{'}\NormalTok{, index}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+    En el archivo de salida de python tenemos una matriz con las posiciones
+con gaps con valores de -1. Continua con el script en R:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}leer los scores con gaps como una matriz }
+        m \PY{o}{=} \PY{k+kp}{as.matrix}\PY{p}{(}read.table\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{/home/fernando/restaurado/alineamiento/scores\PYZus{}df2\PYZdq{}}\PY{p}{,} header \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} transformar la matriz de scores en una matriz \PYZdq{}binaria\PYZdq{} con 1 a las posiciones}
+        \PY{c+c1}{\PYZsh{} desorneadas y 0 a las ordenadas. (ademas \PYZhy{}1 los gaps)}
+        m\PYZus{}binaria \PY{o}{=} m
+        m\PYZus{}binaria\PY{p}{[}\PY{o}{!}\PY{p}{(}m\PYZus{}binaria \PY{o}{\PYZgt{}} \PY{l+m}{0.45}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{0\PYZdq{}}
+        m\PYZus{}binaria\PY{p}{[}\PY{p}{(}m\PYZus{}binaria \PY{o}{\PYZgt{}} \PY{l+m}{0.45}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{1\PYZdq{}}
+        m\PYZus{}binaria\PY{p}{[}\PY{p}{(}m \PY{o}{==} \PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}1\PYZdq{}}
+\end{Verbatim}
+
+
+    Para configurar el tamaño de los graficos en R se corre el siguiente
+codigo:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{library}\PY{p}{(}repr\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Change plot size to 4 x 3}
+         \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{7}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}para graficar en ggplot es necesario transformar con melt la matriz.}
+         
+         ggplot\PY{p}{(}melt\PY{p}{(}m\PYZus{}binaria\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           geom\PYZus{}tile\PY{p}{(}\PY{p}{)} \PY{o}{+} scale\PYZus{}fill\PYZus{}manual\PY{p}{(}values\PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue4\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} theme\PY{p}{(}legend.position\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{none\PYZdq{}}\PY{p}{)} \PY{o}{+}
+           geom\PYZus{}vline\PY{p}{(}xintercept \PY{o}{=} \PY{l+m}{105}\PY{p}{,} linetype\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dotted\PYZdq{}}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.5}\PY{p}{)} \PY{o}{+} labs\PY{p}{(}x \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Desorden\PYZdq{}}\PY{p}{,} y \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Especie\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Gapstrip ZIKA - Eliminar las columnas donde hay gaps en la secuencia de
+zika:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} fila de zika = 59}
+         s \PY{o}{=} m\PY{p}{[}\PY{l+m}{59}\PY{p}{,}\PY{p}{]} \PY{c+c1}{\PYZsh{} fila Zika}
+         gaps\PYZus{}zika \PY{o}{\PYZlt{}\PYZhy{}} s \PY{o}{!=} \PY{l+m}{\PYZhy{}1.00} \PY{c+c1}{\PYZsh{} gaps en zika}
+         m\PYZus{}gapped \PY{o}{\PYZlt{}\PYZhy{}} m\PY{p}{[}\PY{p}{,}gaps\PYZus{}zika\PY{p}{]} \PY{c+c1}{\PYZsh{} gap strip}
+         
+         \PY{c+c1}{\PYZsh{}nueva matriz binaria }
+         m\PYZus{}binaria \PY{o}{=} m\PYZus{}gapped
+         m\PYZus{}binaria\PY{p}{[}\PY{o}{!}\PY{p}{(}m\PYZus{}gapped \PY{o}{\PYZgt{}} \PY{l+m}{0.45}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{0\PYZdq{}}
+         m\PYZus{}binaria\PY{p}{[}\PY{p}{(}m\PYZus{}gapped \PY{o}{\PYZgt{}} \PY{l+m}{0.45}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{1\PYZdq{}}
+         m\PYZus{}binaria\PY{p}{[}\PY{p}{(}m\PYZus{}gapped \PY{o}{==} \PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}1\PYZdq{}}
+         
+         
+         \PY{c+c1}{\PYZsh{} Agregar  lineas verticales (proteinas, zika) lineas horizontales (separador)}
+         zika\PYZus{}lineas \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{105}\PY{p}{,}\PY{l+m}{215}\PY{p}{,}\PY{l+m}{216}\PY{p}{,}\PY{l+m}{291}\PY{p}{,}\PY{l+m}{791}\PY{p}{,}\PY{l+m}{1143}\PY{p}{,}\PY{l+m}{1369}\PY{p}{,}\PY{l+m}{1499}\PY{p}{,}\PY{l+m}{2116}\PY{p}{,}\PY{l+m}{2243}\PY{p}{,}\PY{l+m}{2266}\PY{p}{,}\PY{l+m}{2517}\PY{p}{)}
+         
+         df \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{data.frame}\PY{p}{(}lineas\PY{o}{=}zika\PYZus{}lineas\PY{p}{)}
+         h\PYZus{}lineas \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{59} \PY{o}{\PYZhy{}} \PY{l+m}{0.5}
+         h\PYZus{}l \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{data.frame}\PY{p}{(}hl\PY{o}{=}h\PYZus{}lineas\PY{p}{)}
+         etiquetas \PY{o}{=} \PY{k+kp}{as.character}\PY{p}{(}datos\PY{o}{\PYZdl{}}virus\PY{p}{)}
+         etiquetas\PY{p}{[}\PY{l+m}{10}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{chimeric\PYZus{}sacar\PYZdq{}} \PY{c+c1}{\PYZsh{} hay que sacar esta especie que es una chimera}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} graficar }
+         ggplot\PY{p}{(}melt\PY{p}{(}m\PYZus{}binaria\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}\PY{p}{)} \PY{o}{+} scale\PYZus{}fill\PYZus{}manual\PY{p}{(}values\PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} theme\PY{p}{(}legend.position\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{none\PYZdq{}}\PY{p}{)} \PY{o}{+}
+           geom\PYZus{}vline\PY{p}{(}data\PY{o}{=}df\PY{p}{,}aes\PY{p}{(}xintercept \PY{o}{=}lineas\PY{p}{)}\PY{p}{,}linetype\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dotted\PYZdq{}}\PY{p}{,}   color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gray51\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.5}\PY{p}{)} \PY{o}{+}
+           geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)}\PY{o}{+} labs\PY{p}{(}x \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Desorden\PYZdq{}}\PY{p}{,} y \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Especie\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} graficar con etiquetas de especies (buscar el tamaño correcto)}
+         ggplot\PY{p}{(}melt\PY{p}{(}m\PYZus{}binaria\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}\PY{p}{)} \PY{o}{+} scale\PYZus{}fill\PYZus{}manual\PY{p}{(}values\PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} theme\PY{p}{(}legend.position\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{none\PYZdq{}}\PY{p}{)} \PY{o}{+}
+           geom\PYZus{}vline\PY{p}{(}data\PY{o}{=}df\PY{p}{,}aes\PY{p}{(}xintercept \PY{o}{=}lineas\PY{p}{)}\PY{p}{,}linetype\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dotted\PYZdq{}}\PY{p}{,}   color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gray51\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.5}\PY{p}{)} \PY{o}{+}
+           geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)}\PY{o}{+}
+           scale\PYZus{}y\PYZus{}continuous\PY{p}{(}breaks\PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{59}\PY{p}{,} labels \PY{o}{=} etiquetas\PY{p}{)} \PY{o}{+} labs\PY{p}{(}x \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Desorden\PYZdq{}}\PY{p}{,} y \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Especie\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Sin columnas con gaps
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} col\PYZus{}gaps \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}guardar columnas con gaps}
+         \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}\PY{k+kp}{nrow}\PY{p}{(}m\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+           gaps \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{which}\PY{p}{(}m\PY{p}{[}i\PY{p}{,}\PY{p}{]} \PY{o}{==} \PY{l+m}{\PYZhy{}1}\PY{p}{)}
+           col\PYZus{}gaps \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}col\PYZus{}gaps\PY{p}{,} gaps\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         col\PYZus{}gaps \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{unique}\PY{p}{(}col\PYZus{}gaps\PY{p}{)}
+         
+         m\PYZus{}nogaps \PY{o}{\PYZlt{}\PYZhy{}} m\PY{p}{[}\PY{p}{,}\PY{o}{\PYZhy{}}col\PYZus{}gaps\PY{p}{]} \PY{c+c1}{\PYZsh{} borrar las columnas con gaps de la matriz}
+         
+         \PY{c+c1}{\PYZsh{}nueva matriz binaria}
+         m\PYZus{}binaria3 \PY{o}{=}m\PYZus{}nogaps
+         m\PYZus{}binaria3\PY{p}{[}\PY{o}{!}\PY{p}{(}m\PYZus{}nogaps\PY{o}{\PYZgt{}} \PY{l+m}{0.45}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{0\PYZdq{}}
+         m\PYZus{}binaria3\PY{p}{[}\PY{p}{(}m\PYZus{}nogaps \PY{o}{\PYZgt{}} \PY{l+m}{0.45}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{1\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} ggplot\PY{p}{(}melt\PY{p}{(}m\PYZus{}binaria3\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}\PY{p}{)} \PY{o}{+} 
+           scale\PYZus{}fill\PYZus{}manual\PY{p}{(}values\PY{o}{=} \PY{k+kt}{c}\PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           \PY{c+c1}{\PYZsh{}theme(panel.background = element\PYZus{}rect(fill = \PYZdq{}black\PYZdq{}, colour = \PYZdq{}black\PYZdq{}, size = 0)) + }
+           \PY{c+c1}{\PYZsh{}theme(element\PYZus{}line(size = 0, linetype = \PYZsq{}solid\PYZsq{},colour = \PYZdq{}black\PYZdq{})) + }
+           \PY{c+c1}{\PYZsh{}geom\PYZus{}vline(data=df,aes(xintercept =lineas),linetype=\PYZdq{}dotted\PYZdq{},   color = \PYZdq{}gray51\PYZdq{}, size=0.5) +}
+           geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)}\PY{o}{+}
+           theme\PY{p}{(}legend.position\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{none\PYZdq{}}\PY{p}{,} axis.title \PY{o}{=} element\PYZus{}blank\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{p}{)} \PY{o}{+} scale\PYZus{}y\PYZus{}continuous\PY{p}{(}breaks\PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{59}\PY{p}{,} labels \PY{o}{=} etiquetas\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    grafico con colores continuos sobre la matriz gap stripped zik
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}paleta de colores}
+         
+         jet.colors \PY{o}{\PYZlt{}\PYZhy{}} colorRampPalette\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} 
+                                          \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FF5252\PYZdq{}}\PY{p}{,}
+                                          \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         
+         ggplot\PY{p}{(}melt\PY{p}{(}m\PYZus{}gapped\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}\PY{p}{)} \PY{o}{+} 
+           scale\PYZus{}fill\PYZus{}gradientn\PY{p}{(}colors \PY{o}{=} jet.colors\PY{p}{(}\PY{l+m}{12}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+}   
+           geom\PYZus{}vline\PY{p}{(}data\PY{o}{=}df\PY{p}{,}aes\PY{p}{(}xintercept \PY{o}{=}lineas\PY{p}{)}\PY{p}{,}linetype\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dotted\PYZdq{}}\PY{p}{,}   color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gray51\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.5}\PY{p}{)} \PY{o}{+}
+           geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)} \PY{c+c1}{\PYZsh{}+}
+           \PY{c+c1}{\PYZsh{}scale\PYZus{}y\PYZus{}continuous(breaks= 1:59, labels = etiquetas)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} Separar por proteinas (tomando como base la matriz zika gap stripp)}
+         
+         \PY{c+c1}{\PYZsh{} por ejemplo C, NS3 y NS5}
+         m\PYZus{}c \PY{o}{\PYZlt{}\PYZhy{}} m\PYZus{}gapped\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{105}\PY{p}{]}
+         m\PYZus{}ns5 \PY{o}{\PYZlt{}\PYZhy{}} m\PYZus{}gapped\PY{p}{[}\PY{p}{,} \PY{l+m}{2517}\PY{o}{:}\PY{l+m}{3425}\PY{p}{]}
+         m\PYZus{}ns3 \PY{o}{\PYZlt{}\PYZhy{}} m\PYZus{}gapped\PY{p}{[}\PY{p}{,} \PY{l+m}{1499}\PY{o}{:}\PY{l+m}{2116}\PY{p}{]}
+         
+         lista \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}m\PYZus{}c\PY{p}{,} m\PYZus{}ns3\PY{p}{,} m\PYZus{}ns5\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} paleta de colores}
+         jet.colors \PY{o}{\PYZlt{}\PYZhy{}} colorRampPalette\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} 
+                                          \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}002089\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FF5252\PYZdq{}}\PY{p}{,}
+                                          \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         cons.colors \PY{o}{\PYZlt{}\PYZhy{}} colorRampPalette\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{yellow\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         
+         \PY{k+kr}{for} \PY{p}{(} prot \PY{k+kr}{in} lista\PY{p}{)}\PY{p}{\PYZob{}}
+         a \PY{o}{\PYZlt{}\PYZhy{}} ggplot\PY{p}{(}melt\PY{p}{(}prot\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}\PY{p}{)} \PY{o}{+} 
+               scale\PYZus{}fill\PYZus{}gradientn\PY{p}{(}colors \PY{o}{=} jet.colors\PY{p}{(}\PY{l+m}{12}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+               theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+               theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+}  
+               geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)} \PY{o}{+}
+               scale\PYZus{}y\PYZus{}continuous\PY{p}{(}breaks\PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{59}\PY{p}{,} labels \PY{o}{=} etiquetas\PY{p}{)}\PY{c+c1}{\PYZsh{}  +   ggtitle(paste(\PYZdq{}Proteina \PYZdq{}, prot))}
+             
+             \PY{k+kp}{print}\PY{p}{(}a\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Agregar a los graficos una barra de conservacion por posicion
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} archivo\PYZus{}conservacion \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZti{}/git/flavivirus\PYZhy{}disorder/2019/flavivirus/conservacion\PYZdq{}}
+         
+         conservacion \PY{o}{\PYZlt{}\PYZhy{}} read.table\PY{p}{(}archivo\PYZus{}conservacion\PY{p}{,} quote\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}\PYZdq{}\PYZdq{}}\PY{p}{,} 
+                                    comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+                                    stringsAsFactors\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+         
+         x\PYZus{} \PY{o}{=} conservacion\PY{o}{\PYZdl{}}V1
+         y\PYZus{} \PY{o}{=} conservacion\PY{o}{\PYZdl{}}V3
+         
+         \PY{c+c1}{\PYZsh{}prueba con una cion que hace un sliding windows para calcular la conservacion}
+         \PY{c+c1}{\PYZsh{} al parecer puede reemplazarse con un parametro al momento de calcular la C.}
+         k \PY{o}{=} \PY{l+m}{20}
+         yo \PY{o}{=}  rollapply\PY{p}{(}y\PYZus{}\PY{p}{,} \PY{l+m}{2}\PY{o}{*}k\PY{l+m}{\PYZhy{}1}\PY{p}{,} \PY{k+kr}{function}\PY{p}{(}x\PY{p}{)} \PY{k+kp}{max}\PY{p}{(}rollmean\PY{p}{(}x\PY{p}{,} k\PY{p}{)}\PY{p}{)}\PY{p}{,} partial \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} subset para proteina C}
+         conservacion\PYZus{}C \PY{o}{\PYZlt{}\PYZhy{}} conservacion\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{105}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}graficar matriz completa (zika gap)}
+         ggplot\PY{p}{(}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}data\PY{o}{=} melt\PY{p}{(}m\PYZus{}gapped\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           scale\PYZus{}fill\PYZus{}gradientn\PY{p}{(}colors \PY{o}{=} jet.colors\PY{p}{(}\PY{l+m}{12}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+}   
+           geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)}\PY{o}{+}
+           scale\PYZus{}y\PYZus{}continuous\PY{p}{(}breaks\PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{59}\PY{p}{,} labels \PY{o}{=} etiquetas\PY{p}{)} \PY{o}{+} 
+           geom\PYZus{}tile\PY{p}{(}data\PY{o}{=}conservacion\PY{p}{,} mapping\PY{o}{=} aes\PY{p}{(}x\PY{o}{=}V1\PY{p}{,} y\PY{o}{=}\PY{l+m}{63}\PY{p}{,} colour\PY{o}{=}yo\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           scale\PYZus{}colour\PYZus{}gradientn\PY{p}{(}colors\PY{o}{=} cons.colors\PY{p}{(}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{13}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{}graficar matriz completa (zika gap)}
+         ggplot\PY{p}{(}\PY{p}{)} \PY{o}{+} geom\PYZus{}tile\PY{p}{(}data\PY{o}{=} melt\PY{p}{(}m\PYZus{}gapped\PY{p}{)}\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}Var2\PY{p}{,} y\PY{o}{=}Var1\PY{p}{,} fill\PY{o}{=}value\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           scale\PYZus{}fill\PYZus{}gradientn\PY{p}{(}colors \PY{o}{=} jet.colors\PY{p}{(}\PY{l+m}{12}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}panel.background \PY{o}{=} element\PYZus{}rect\PY{p}{(}fill \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           theme\PY{p}{(}element\PYZus{}line\PY{p}{(}size \PY{o}{=} \PY{l+m}{0}\PY{p}{,} linetype \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{solid\PYZsq{}}\PY{p}{,}colour \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{o}{+}   
+           geom\PYZus{}hline\PY{p}{(}data\PY{o}{=}h\PYZus{}l\PY{p}{,}aes\PY{p}{(}yintercept \PY{o}{=}h\PYZus{}lineas\PY{p}{)}\PY{p}{,}  color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{,} size\PY{o}{=}\PY{l+m}{0.1}\PY{p}{)}\PY{o}{+}
+           scale\PYZus{}y\PYZus{}continuous\PY{p}{(}breaks\PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{59}\PY{p}{,} labels \PY{o}{=} etiquetas\PY{p}{)} \PY{o}{+} 
+           geom\PYZus{}tile\PY{p}{(}data\PY{o}{=}conservacion\PY{p}{,} mapping\PY{o}{=} aes\PY{p}{(}x\PY{o}{=}V1\PY{p}{,} y\PY{o}{=}\PY{l+m}{63}\PY{p}{,} colour\PY{o}{=}yo\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           scale\PYZus{}colour\PYZus{}gradientn\PY{p}{(}colors\PY{o}{=} cons.colors\PY{p}{(}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

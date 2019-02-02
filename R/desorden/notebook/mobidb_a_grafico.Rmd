@@ -1,0 +1,71 @@
+---
+title: "Desorden Flavivirus"
+author: "FO"
+date: "1 de febrero de 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library("ggplot2")
+library("reshape2")
+library("jsonlite")
+library("seqinr")
+```
+
+
+
+```{r}
+
+
+# La salida de mobidb no es un archivo json valido, hay que editarlo con
+# tr '\n' ' ' < IN | sed 's/ } {/} \n{/g' > IN_f.json
+
+#lee el archivo json (editado previamente en bash)
+json_file <- "/home/fernando/git/flavivirus-disorder/2019/flavivirus/no_X/hit08/json_in/gp_f.json"
+data = stream_in(file(json_file))
+
+#agrega una columna ID incremental
+data$id = 1:nrow(data)
+
+#agrega una columna virus con el nombre del virus
+lista_virus = data.frame(strsplit(data$acc, "|", fixed = TRUE)) #separa por |
+data$virus = gsub("_virus", "", unlist(lista_virus[1,])) #toma la primer fila que son los nombres de los virus
+
+# data frame con id nombre de virus y nombre largo
+codigos_virus = data[c("id", "virus", "acc")]
+
+nombres  = data$virus
+
+#subset de trabajo
+datos = data[c("id", "virus", "p")]
+datos <- datos[-27,] #saco el que estaba mal alineado
+
+
+salida = "/home/fernando/restaurado/alineamiento/nuevos_scores"
+
+# escribir los datos finales, descomentar
+
+#for (i in 1:nrow(datos)){
+#  write(unlist(datos[i, 3]), "/home/fernando/restaurado/alineamiento/nuevos_scores", append=T, sep=",", ncolumns = length(unlist(datos[i, 3])))
+#}
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
